@@ -6,6 +6,8 @@ namespace ConstructingACar
     {
         public class OnBoardComputerDisplay : IOnBoardComputerDisplay // car #3
         {
+            private readonly IOnBoardComputer _onBoardComputer;
+
             public int TripRealTime => throw new NotImplementedException();
 
             public int TripDrivingTime => throw new NotImplementedException();
@@ -40,7 +42,7 @@ namespace ConstructingACar
 
             public OnBoardComputerDisplay(IOnBoardComputer onBoardComputer)
             {
-
+                _onBoardComputer = onBoardComputer;
             }
 
             public void TotalReset()

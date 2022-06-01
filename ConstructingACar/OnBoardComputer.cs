@@ -9,36 +9,28 @@ namespace ConstructingACar
         {
             private IDrivingProcessor _drivingProcessor;
             private IFuelTankDisplay _fuelTankDisplay;
-            private int _tripRealTime;
-            private int _tripDrivingTime;
-            private int _tripDrivenDistance;
-            private int _totalRealTime;
-            private int _totalDrivingTime;
-            private int _totalDrivenDistance;
-            private int _tripAverageSpeed;
-            private int _totalAverageSpeed;
-            private int _actualConsumptionByTime;
 
 
-            public int TripRealTime => _tripRealTime;
 
-            public int TripDrivingTime => _tripDrivingTime;
+            public int TripRealTime => throw new NotImplementedException();
 
-            public int TripDrivenDistance => _tripDrivenDistance;
+            public int TripDrivingTime => throw new NotImplementedException();
 
-            public int TotalRealTime => _totalRealTime;
+            public int TripDrivenDistance => throw new NotImplementedException();
 
-            public int TotalDrivingTime => _totalDrivingTime;
+            public int TotalRealTime => throw new NotImplementedException();
 
-            public int TotalDrivenDistance => _totalDrivenDistance;
+            public int TotalDrivingTime => throw new NotImplementedException();
 
-            public double TripAverageSpeed => _tripAverageSpeed;
+            public int TotalDrivenDistance => throw new NotImplementedException();
 
-            public double TotalAverageSpeed => _totalAverageSpeed;
+            public double TripAverageSpeed => throw new NotImplementedException();
+
+            public double TotalAverageSpeed => throw new NotImplementedException();
 
             public int ActualSpeed => _drivingProcessor.ActualSpeed;
 
-            public double ActualConsumptionByTime => _actualConsumptionByTime;
+            public double ActualConsumptionByTime => throw new NotImplementedException();
 
             public double ActualConsumptionByDistance => throw new NotImplementedException();
 
@@ -60,7 +52,7 @@ namespace ConstructingACar
 
             public void ElapseSecond()
             {
-                
+                throw new NotImplementedException();
             }
 
             public void TotalReset()
