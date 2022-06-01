@@ -1,5 +1,4 @@
 ﻿using ConstructingACar.Interfaces;
-using static ConstructingACar.Constructing_a_car;
 
 namespace ConstructingACar
 {
@@ -68,44 +67,34 @@ namespace ConstructingACar
                 }
                 else
                     _actualSpeed -= _actualSpeed;
-                
+
                 Consume();
             }
 
             public void EngineStart()
             {
-                
             }
 
             public void EngineStop()
             {
-                
             }
 
             private void Consume()
             {
                 if (!_engine.IsRunning)
-                {
                     return;
-                }
 
-                _actualConsumption = 0.0020;
-
+                _actualConsumption = 0.0003;
+                if((_actualSpeed >= 1) && (_actualSpeed <= 60))
+                    _actualConsumption = 0.0020;
                 if ((_actualSpeed > 61) && (_actualSpeed <= 100))
-                {
                     _actualConsumption = 0.0014;
-                }
                 if ((_actualSpeed > 141) && (_actualSpeed <= 200))
-                {
                     _actualConsumption = 0.0025;
-                }
                 if ((_actualSpeed > 201) && (_actualSpeed <= 250))
-                {
                     _actualConsumption = 0.0030;
-                }
 
                 _engine.Consume(_actualConsumption);
-                
             }
         }
     }

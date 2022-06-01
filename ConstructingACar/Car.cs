@@ -27,8 +27,6 @@ namespace ConstructingACar
                 onBoardComputerDisplay = new OnBoardComputerDisplay(onBoardComputer);
             }
 
-
-
             public void EngineStart()
             {
                 if (!EngineIsRunning && fuelTank.FillLevel >= 0.0003)
