@@ -30,9 +30,9 @@ namespace ConstructingACar
 
             public int ActualSpeed => _drivingProcessor.ActualSpeed;
 
-            public double ActualConsumptionByTime => throw new NotImplementedException();
+            public double ActualConsumptionByTime => _drivingProcessor.ActualConsumption;
 
-            public double ActualConsumptionByDistance => throw new NotImplementedException();
+            public double ActualConsumptionByDistance => _drivingProcessor.ActualConsumption;
 
             public double TripAverageConsumptionByTime => throw new NotImplementedException();
 

@@ -14,7 +14,7 @@ namespace ConstructingACar
             public IOnBoardComputerDisplay onBoardComputerDisplay; // car #3
             private IOnBoardComputer onBoardComputer; // car #3
 
-            public bool EngineIsRunning { get => engine.IsRunning; }
+            public bool EngineIsRunning => engine.IsRunning;
 
             public Car(double fuelLevel = 20, int maxAcceleration = 10) // car #2
             {
@@ -26,6 +26,8 @@ namespace ConstructingACar
                 onBoardComputer = new OnBoardComputer(drivingProcessor, fuelTankDisplay);
                 onBoardComputerDisplay = new OnBoardComputerDisplay(onBoardComputer);
             }
+
+
 
             public void EngineStart()
             {
@@ -52,7 +54,7 @@ namespace ConstructingACar
 
             public void RunningIdle()
             {
-                engine.Consume(0.0003);               
+                drivingProcessor.ReduceSpeed(0);
             }
 
             public void BrakeBy(int speed)
@@ -62,23 +64,12 @@ namespace ConstructingACar
 
             public void Accelerate(int speed)
             {
-                if (engine.IsRunning)
-                {
-                    drivingProcessor.IncreaseSpeedTo(speed);
-                    
-                    if (speed < drivingProcessor.ActualSpeed)
-                        FreeWheel();
-                }
+                drivingProcessor.IncreaseSpeedTo(speed);
             }
 
             public void FreeWheel()
             {
-                if (drivingProcessor.ActualSpeed > 0)
-                {
-                    drivingProcessor.ReduceSpeed(1);
-                }
-                else
-                    RunningIdle();
+                drivingProcessor.ReduceSpeed(1);
             }
         }
     }

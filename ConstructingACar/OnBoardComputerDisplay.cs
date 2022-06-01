@@ -1,4 +1,5 @@
 ﻿using ConstructingACar.Interfaces;
+using static ConstructingACar.Constructing_a_car;
 
 namespace ConstructingACar
 {
@@ -8,37 +9,37 @@ namespace ConstructingACar
         {
             private readonly IOnBoardComputer _onBoardComputer;
 
-            public int TripRealTime => throw new NotImplementedException();
+            public int TripRealTime => _onBoardComputer.TripRealTime;
 
-            public int TripDrivingTime => throw new NotImplementedException();
+            public int TripDrivingTime => _onBoardComputer.TripDrivingTime;
 
-            public double TripDrivenDistance => throw new NotImplementedException();
+            public double TripDrivenDistance => _onBoardComputer.TotalDrivenDistance;
 
-            public int TotalRealTime => throw new NotImplementedException();
+            public int TotalRealTime => _onBoardComputer.TotalRealTime;
 
-            public int TotalDrivingTime => throw new NotImplementedException();
+            public int TotalDrivingTime => _onBoardComputer.TotalDrivingTime;
 
-            public double TotalDrivenDistance => throw new NotImplementedException();
+            public double TotalDrivenDistance => _onBoardComputer.TotalDrivenDistance;
 
-            public int ActualSpeed => throw new NotImplementedException();
+            public int ActualSpeed => _onBoardComputer.ActualSpeed;
 
-            public double TripAverageSpeed => throw new NotImplementedException();
+            public double TripAverageSpeed => _onBoardComputer.TripAverageSpeed;
 
-            public double TotalAverageSpeed => throw new NotImplementedException();
+            public double TotalAverageSpeed => _onBoardComputer.TotalAverageSpeed;
 
-            public double ActualConsumptionByTime => throw new NotImplementedException();
+            public double ActualConsumptionByTime => _onBoardComputer.ActualConsumptionByTime;
 
-            public double ActualConsumptionByDistance => throw new NotImplementedException();
+            public double ActualConsumptionByDistance => _onBoardComputer.ActualConsumptionByDistance;
 
-            public double TripAverageConsumptionByTime => throw new NotImplementedException();
+            public double TripAverageConsumptionByTime => _onBoardComputer.TripAverageConsumptionByTime;
 
-            public double TotalAverageConsumptionByTime => throw new NotImplementedException();
+            public double TotalAverageConsumptionByTime => _onBoardComputer.TotalAverageConsumptionByTime;
 
-            public double TripAverageConsumptionByDistance => throw new NotImplementedException();
+            public double TripAverageConsumptionByDistance => _onBoardComputer.TripAverageConsumptionByDistance;
 
-            public double TotalAverageConsumptionByDistance => throw new NotImplementedException();
+            public double TotalAverageConsumptionByDistance => _onBoardComputer.TotalAverageConsumptionByDistance;
 
-            public int EstimatedRange => throw new NotImplementedException();
+            public int EstimatedRange => _onBoardComputer.EstimatedRange;
 
             public OnBoardComputerDisplay(IOnBoardComputer onBoardComputer)
             {

@@ -14,14 +14,15 @@ namespace ConstructingACar
             private int _maxAcc = 20;
             private int _minAcc = 5;
             private int _maxBraking = 10;
-            public double _actualConsumption = 0.0003;
-
+            public double _actualConsumption;
 
             public int ActualSpeed => _actualSpeed;
-            public double ActualConsumption => _engine.IsRunning ? _actualConsumption : 0;
+            public double ActualConsumption => _actualConsumption;
 
             public DrivingProcessor(int acceleration, IEngine engine)
             {
+                _engine = engine;
+
                 if (acceleration < _minAcc)
                     _acceleration = _minAcc;
                 else if (acceleration > _maxAcc)
@@ -29,11 +30,13 @@ namespace ConstructingACar
                 else
                     _acceleration = acceleration;
                 _actualConsumption = 0;
-                _engine = engine;
             }
 
             public void IncreaseSpeedTo(int speed)
             {
+                if (!_engine.IsRunning)
+                    return;
+
                 if (speed >= _maxSpeed)
                     speed = _maxSpeed;
 
@@ -44,28 +47,18 @@ namespace ConstructingACar
                     else
                         _actualSpeed += speed - _actualSpeed;
                 }
-                if (ActualSpeed >= 1 && ActualSpeed <= 60)
-                    _actualConsumption = 0.0020;
-                else if (ActualSpeed >= 61 && ActualSpeed <= 100)
-                    _actualConsumption = 0.0014;
-                else if (ActualSpeed >= 101 && ActualSpeed <= 140)
-                    _actualConsumption = 0.0020;
-                else if (ActualSpeed >= 141 && ActualSpeed <= 200)
-                    _actualConsumption = 0.0025;
-                else if (ActualSpeed >= 141 && ActualSpeed <= 250)
-                    _actualConsumption = 0.0030;
-                else
-                    _actualConsumption = 0.0003;
-                
-                _engine.Consume(_actualConsumption);
+
+                Consume();
             }
 
             public void ReduceSpeed(int speed)
             {
+                if (!_engine.IsRunning)
+                    return;
+
                 if (speed <= 0)
-                {
                     speed = 0;
-                }
+
                 if (_actualSpeed >= speed)
                 {
                     if (speed <= _maxBraking)
@@ -76,18 +69,43 @@ namespace ConstructingACar
                 else
                     _actualSpeed -= _actualSpeed;
                 
-                _actualConsumption = 0.0003;
-                _engine.Consume(_actualConsumption);
+                Consume();
             }
 
             public void EngineStart()
             {
-                _actualConsumption = 0.0003;
+                
             }
 
             public void EngineStop()
             {
-                _actualConsumption = 0.0000;
+                
+            }
+
+            private void Consume()
+            {
+                if (!_engine.IsRunning)
+                {
+                    return;
+                }
+
+                _actualConsumption = 0.0020;
+
+                if ((_actualSpeed > 61) && (_actualSpeed <= 100))
+                {
+                    _actualConsumption = 0.0014;
+                }
+                if ((_actualSpeed > 141) && (_actualSpeed <= 200))
+                {
+                    _actualConsumption = 0.0025;
+                }
+                if ((_actualSpeed > 201) && (_actualSpeed <= 250))
+                {
+                    _actualConsumption = 0.0030;
+                }
+
+                _engine.Consume(_actualConsumption);
+                
             }
         }
     }
