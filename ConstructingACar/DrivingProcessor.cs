@@ -1,4 +1,5 @@
 ﻿using ConstructingACar.Interfaces;
+using static ConstructingACar.Constructing_a_car;
 
 namespace ConstructingACar
 {
@@ -13,11 +14,11 @@ namespace ConstructingACar
             private int _maxAcc = 20;
             private int _minAcc = 5;
             private int _maxBraking = 10;
-            private double _actualConsumption;
+            public double _actualConsumption = 0.0003;
+
 
             public int ActualSpeed => _actualSpeed;
-
-            public double ActualConsumption => _actualConsumption;
+            public double ActualConsumption => _engine.IsRunning ? _actualConsumption : 0;
 
             public DrivingProcessor(int acceleration, IEngine engine)
             {
@@ -27,8 +28,8 @@ namespace ConstructingACar
                     _acceleration = _maxAcc;
                 else
                     _acceleration = acceleration;
-                _actualConsumption = 4.8;
-
+                _actualConsumption = 0;
+                _engine = engine;
             }
 
             public void IncreaseSpeedTo(int speed)
@@ -44,17 +45,19 @@ namespace ConstructingACar
                         _actualSpeed += speed - _actualSpeed;
                 }
                 if (ActualSpeed >= 1 && ActualSpeed <= 60)
-                    _engine.Consume(0.0020);
+                    _actualConsumption = 0.0020;
                 else if (ActualSpeed >= 61 && ActualSpeed <= 100)
-                    _engine.Consume(0.0014);
+                    _actualConsumption = 0.0014;
                 else if (ActualSpeed >= 101 && ActualSpeed <= 140)
-                    _engine.Consume(0.0020);
+                    _actualConsumption = 0.0020;
                 else if (ActualSpeed >= 141 && ActualSpeed <= 200)
-                    _engine.Consume(0.0025);
+                    _actualConsumption = 0.0025;
                 else if (ActualSpeed >= 141 && ActualSpeed <= 250)
-                    _engine.Consume(0.0030);
+                    _actualConsumption = 0.0030;
                 else
-                    _engine.Consume(0.0003);
+                    _actualConsumption = 0.0003;
+                
+                _engine.Consume(_actualConsumption);
             }
 
             public void ReduceSpeed(int speed)
@@ -72,16 +75,19 @@ namespace ConstructingACar
                 }
                 else
                     _actualSpeed -= _actualSpeed;
+                
+                _actualConsumption = 0.0003;
+                _engine.Consume(_actualConsumption);
             }
 
             public void EngineStart()
             {
-                throw new NotImplementedException();
+                _actualConsumption = 0.0003;
             }
 
             public void EngineStop()
             {
-                throw new NotImplementedException();
+                _actualConsumption = 0.0000;
             }
         }
     }
