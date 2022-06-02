@@ -12,13 +12,13 @@ namespace ConstructingACar.Interfaces
 
         int TripDrivingTime { get; }
 
-        double TripDrivenDistance { get; }
+        int TripDrivenDistance { get; }
 
         int TotalRealTime { get; }
 
         int TotalDrivingTime { get; }
 
-        double TotalDrivenDistance { get; }
+        int TotalDrivenDistance { get; }
 
         double TripAverageSpeed { get; }
 

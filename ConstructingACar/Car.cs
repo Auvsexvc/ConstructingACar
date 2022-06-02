@@ -23,7 +23,7 @@ namespace ConstructingACar
                 fuelTankDisplay = new FuelTankDisplay(fuelTank);
                 drivingProcessor = new DrivingProcessor(maxAcceleration, engine);
                 drivingInformationDisplay = new DrivingInformationDisplay(drivingProcessor);
-                onBoardComputer = new OnBoardComputer(drivingProcessor, fuelTankDisplay, engine);
+                onBoardComputer = new OnBoardComputer(drivingProcessor, fuelTankDisplay);
                 onBoardComputerDisplay = new OnBoardComputerDisplay(onBoardComputer);
             }
 
@@ -32,7 +32,8 @@ namespace ConstructingACar
                 if (!EngineIsRunning && fuelTank.FillLevel >= 0.0003)
                 {
                     engine.Start();
-                    drivingProcessor.EngineStart();
+                    onBoardComputer.TripReset();
+                    //onBoardComputer.ElapseSecond();
                 }
             }
 
@@ -41,7 +42,6 @@ namespace ConstructingACar
                 if (EngineIsRunning)
                 {
                     engine.Stop();
-                    drivingProcessor.EngineStop();
                 }
             }
 
@@ -53,21 +53,25 @@ namespace ConstructingACar
             public void RunningIdle()
             {
                 drivingProcessor.ReduceSpeed(0);
+                onBoardComputer.ElapseSecond();
             }
 
             public void BrakeBy(int speed)
             {
                 drivingProcessor.ReduceSpeed(speed);
+                onBoardComputer.ElapseSecond();
             }
 
             public void Accelerate(int speed)
             {
                 drivingProcessor.IncreaseSpeedTo(speed);
+                onBoardComputer.ElapseSecond();
             }
 
             public void FreeWheel()
             {
                 drivingProcessor.ReduceSpeed(1);
+                onBoardComputer.ElapseSecond();
             }
         }
     }

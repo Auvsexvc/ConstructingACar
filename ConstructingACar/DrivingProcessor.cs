@@ -57,19 +57,29 @@ namespace ConstructingACar
                     return;
 
                 if (speed <= 0)
+                {
                     speed = 0;
+                    Consume();
+                }
 
-                if (_actualSpeed >= speed)
+                if (_actualSpeed >= speed )
                 {
                     if (speed <= _maxBraking)
                         _actualSpeed -= speed;
                     else
                         _actualSpeed -= _maxBraking;
+                    if(_actualSpeed != 0) 
+                        _actualConsumption = 0;
+                    else
+                        Consume();
                 }
                 else
+                {
                     _actualSpeed -= _actualSpeed;
+                    Consume();
 
-                Consume();
+                }
+                
             }
 
             public void EngineStart()

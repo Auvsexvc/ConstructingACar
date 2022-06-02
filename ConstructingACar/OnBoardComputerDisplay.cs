@@ -1,5 +1,4 @@
 ﻿using ConstructingACar.Interfaces;
-using static ConstructingACar.Constructing_a_car;
 
 namespace ConstructingACar
 {
@@ -13,31 +12,31 @@ namespace ConstructingACar
 
             public int TripDrivingTime => _onBoardComputer.TripDrivingTime;
 
-            public double TripDrivenDistance => _onBoardComputer.TotalDrivenDistance;
+            public double TripDrivenDistance => Math.Round(_onBoardComputer.TripDrivenDistance * 0.000277778, 2);
 
             public int TotalRealTime => _onBoardComputer.TotalRealTime;
 
             public int TotalDrivingTime => _onBoardComputer.TotalDrivingTime;
 
-            public double TotalDrivenDistance => _onBoardComputer.TotalDrivenDistance;
+            public double TotalDrivenDistance => Math.Round(_onBoardComputer.TotalDrivenDistance * 0.000277778, 2);
 
             public int ActualSpeed => _onBoardComputer.ActualSpeed;
 
-            public double TripAverageSpeed => _onBoardComputer.TripAverageSpeed;
+            public double TripAverageSpeed => Math.Round(_onBoardComputer.TripAverageSpeed, 1);
 
-            public double TotalAverageSpeed => _onBoardComputer.TotalAverageSpeed;
+            public double TotalAverageSpeed => Math.Round(_onBoardComputer.TotalAverageSpeed, 1);
 
             public double ActualConsumptionByTime => _onBoardComputer.ActualConsumptionByTime;
 
-            public double ActualConsumptionByDistance => _onBoardComputer.ActualConsumptionByDistance;
+            public double ActualConsumptionByDistance => Math.Round(_onBoardComputer.ActualConsumptionByDistance, 1);
 
-            public double TripAverageConsumptionByTime => _onBoardComputer.TripAverageConsumptionByTime;
+            public double TripAverageConsumptionByTime => Math.Round(_onBoardComputer.TripAverageConsumptionByTime, 5);
 
-            public double TotalAverageConsumptionByTime => _onBoardComputer.TotalAverageConsumptionByTime;
+            public double TotalAverageConsumptionByTime => Math.Round(_onBoardComputer.TotalAverageConsumptionByTime, 5);
 
-            public double TripAverageConsumptionByDistance => _onBoardComputer.TripAverageConsumptionByDistance;
+            public double TripAverageConsumptionByDistance => Math.Round(_onBoardComputer.TripAverageConsumptionByDistance, 1);
 
-            public double TotalAverageConsumptionByDistance => _onBoardComputer.TotalAverageConsumptionByDistance;
+            public double TotalAverageConsumptionByDistance => Math.Round(_onBoardComputer.TotalAverageConsumptionByDistance, 1);
 
             public int EstimatedRange => _onBoardComputer.EstimatedRange;
 
@@ -48,12 +47,12 @@ namespace ConstructingACar
 
             public void TotalReset()
             {
-                throw new NotImplementedException();
+                _onBoardComputer.TotalReset();
             }
 
             public void TripReset()
             {
-                throw new NotImplementedException();
+                _onBoardComputer.TripReset();
             }
         }
     }
