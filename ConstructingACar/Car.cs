@@ -23,7 +23,7 @@ namespace ConstructingACar
                 fuelTankDisplay = new FuelTankDisplay(fuelTank);
                 drivingProcessor = new DrivingProcessor(maxAcceleration, engine);
                 drivingInformationDisplay = new DrivingInformationDisplay(drivingProcessor);
-                onBoardComputer = new OnBoardComputer(drivingProcessor, fuelTankDisplay);
+                onBoardComputer = new OnBoardComputer(drivingProcessor, fuelTank);
                 onBoardComputerDisplay = new OnBoardComputerDisplay(onBoardComputer);
             }
 
