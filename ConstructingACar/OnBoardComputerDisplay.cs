@@ -8,10 +8,10 @@ namespace ConstructingACar
 
         public int TripRealTime => _onBoardComputer.TripRealTime;
         public int TripDrivingTime => _onBoardComputer.TripDrivingTime;
-        public double TripDrivenDistance => Math.Round(_onBoardComputer.TripDrivenDistance / 3600.0, 2);
+        public double TripDrivenDistance => Math.Round(Utils.ConvertToKMPS(_onBoardComputer.TripDrivenDistance), 2);
         public int TotalRealTime => _onBoardComputer.TotalRealTime;
         public int TotalDrivingTime => _onBoardComputer.TotalDrivingTime;
-        public double TotalDrivenDistance => Math.Round(_onBoardComputer.TotalDrivenDistance / 3600.0, 2);
+        public double TotalDrivenDistance => Math.Round(Utils.ConvertToKMPS(_onBoardComputer.TotalDrivenDistance), 2);
         public int ActualSpeed => _onBoardComputer.ActualSpeed;
         public double TripAverageSpeed => Math.Round(_onBoardComputer.TripAverageSpeed, 1);
         public double TotalAverageSpeed => Math.Round(_onBoardComputer.TotalAverageSpeed, 1);

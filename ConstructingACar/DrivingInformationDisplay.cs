@@ -4,8 +4,8 @@ namespace ConstructingACar
 {
     public class DrivingInformationDisplay : IDrivingInformationDisplay // car #2
     {
-        private IDrivingProcessor _drivingProcessor;
-        public int ActualSpeed { get => _drivingProcessor.ActualSpeed; }
+        private readonly IDrivingProcessor _drivingProcessor;
+        public int ActualSpeed => _drivingProcessor.ActualSpeed;
 
         public DrivingInformationDisplay(IDrivingProcessor drivingProcessor)
         {

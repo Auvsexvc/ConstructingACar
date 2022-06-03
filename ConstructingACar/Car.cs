@@ -55,34 +55,46 @@ namespace ConstructingACar
 
         public void RunningIdle()
         {
-            Log.Info($"RunningIdle()");
-            _drivingProcessor.ReduceSpeed(0);
-            _onBoardComputer.ElapseSecond();
-            Log.Info($"fuel: {_fuelTank.FillLevel}");
+            if (EngineIsRunning)
+            {
+                Log.Info($"RunningIdle()");
+                _drivingProcessor.ReduceSpeed(0);
+                _onBoardComputer.ElapseSecond();
+                Log.Info($"fuel: {_fuelTank.FillLevel}");
+            }
         }
 
         public void BrakeBy(int speed)
         {
-            Log.Info($"BrakeBy({speed})");
-            _drivingProcessor.ReduceSpeed(speed);
-            _onBoardComputer.ElapseSecond();
-            Log.Info($"fuel: {_fuelTank.FillLevel}");
+            if (EngineIsRunning)
+            {
+                Log.Info($"BrakeBy({speed})");
+                _drivingProcessor.ReduceSpeed(speed);
+                _onBoardComputer.ElapseSecond();
+                Log.Info($"fuel: {_fuelTank.FillLevel}");
+            }
         }
 
         public void Accelerate(int speed)
         {
-            Log.Info($"Accelerate({speed})");
-            _drivingProcessor.IncreaseSpeedTo(speed);
-            _onBoardComputer.ElapseSecond();
-            Log.Info($"fuel: {_fuelTank.FillLevel}");
+            if (EngineIsRunning)
+            {
+                Log.Info($"Accelerate({speed})");
+                _drivingProcessor.IncreaseSpeedTo(speed);
+                _onBoardComputer.ElapseSecond();
+                Log.Info($"fuel: {_fuelTank.FillLevel}");
+            }
         }
 
         public void FreeWheel()
         {
-            Log.Info($"FreeWheel()");
-            _drivingProcessor.ReduceSpeed(1);
-            _onBoardComputer.ElapseSecond();
-            Log.Info($"fuel: {_fuelTank.FillLevel}");
+            if (EngineIsRunning)
+            {
+                Log.Info($"FreeWheel()");
+                _drivingProcessor.ReduceSpeed(1);
+                _onBoardComputer.ElapseSecond();
+                Log.Info($"fuel: {_fuelTank.FillLevel}");
+            }
         }
     }
 }
