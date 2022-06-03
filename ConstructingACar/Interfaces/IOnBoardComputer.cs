@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ConstructingACar.Interfaces
+﻿namespace ConstructingACar.Interfaces
 {
-    internal interface IOnBoardComputer
+    public interface IOnBoardComputer
     {
         int TripRealTime { get; }
 

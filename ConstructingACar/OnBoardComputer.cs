@@ -2,133 +2,144 @@
 
 namespace ConstructingACar
 {
-    internal partial class Constructing_a_car
+    public class OnBoardComputer : IOnBoardComputer // car #3
     {
-        public class OnBoardComputer : IOnBoardComputer // car #3
+        private IDrivingProcessor _drivingProcessor;
+        private IFuelTank _fuelTank;
+
+        private List<double> tripConsumptionHistory;
+        private List<double> totalConsumptionHistory;
+        private List<int> tripSpeedHistory;
+        private List<int> totalSpeedHistory;
+        private List<int> tripDistanceHistory;
+        private List<int> totalDistanceHistory;
+        private List<double> tripConsumptionByDistanceHistory;
+        private List<double> totalConsumptionByDistanceHistory;
+        private List<double> factoryConsumptionByDistanceHistory;
+        private List<double> factoryAndTotalConsumptionByDistanceHistory;
+        private double startingFuelLevel;
+
+        public int TripRealTime => tripSpeedHistory.Count;
+        public int TripDrivingTime => tripSpeedHistory.Count(s => s > 0);
+        public int TripDrivenDistance => tripDistanceHistory.Sum();
+        public int TotalRealTime => totalSpeedHistory.Count;
+        public int TotalDrivingTime => totalSpeedHistory.Count(s => s > 0);
+        public int TotalDrivenDistance => totalDistanceHistory.Sum();
+        public double TripAverageSpeed => tripSpeedHistory.Sum() / (double)tripSpeedHistory.Count(s => s > 0);
+        public double TotalAverageSpeed => totalSpeedHistory.Sum() / (double)totalSpeedHistory.Count(s => s > 0);
+        public int ActualSpeed => _drivingProcessor.ActualSpeed;
+        public double ActualConsumptionByTime => tripConsumptionHistory.Last();
+        public double ActualConsumptionByDistance => tripDistanceHistory.Last() == 0 ? double.NaN : tripConsumptionHistory.Last() / Conv(tripDistanceHistory.Last()) * 100;
+        public double TripAverageConsumptionByTime => tripConsumptionHistory.Sum() / tripConsumptionHistory.Count;
+        public double TotalAverageConsumptionByTime => totalConsumptionHistory.Sum() / totalConsumptionHistory.Count;
+
+        public double TripAverageConsumptionByDistance
         {
-            private IDrivingProcessor _drivingProcessor;
-            private IFuelTank _fuelTank;
-
-            private List<double> _tripConsumptionHistory;
-            private List<double> _totalConsumptionHistory;
-            private List<int> _tripSpeedHistory;
-            private List<int> _totalSpeedHistory;
-            private List<int> _tripDistanceHistory;
-            private List<int> _totalDistanceHistory;
-            private List<double> _tripConsumptionByDistanceHistory;
-            private List<double> _totalConsumptionByDistanceHistory;
-            private List<double> _factoryConsumptionByDistanceHistory;
-            private List<double> _factoryAndTotalConsumptionByDistanceHistory;
-
-            public int TripRealTime => _tripSpeedHistory.Count;
-            public int TripDrivingTime => _tripSpeedHistory.Count(s => s > 0);
-            public int TripDrivenDistance => _tripDistanceHistory.Sum();
-            public int TotalRealTime => _totalSpeedHistory.Count;
-            public int TotalDrivingTime => _totalSpeedHistory.Count(s => s > 0);
-            public int TotalDrivenDistance => _totalDistanceHistory.Sum();
-            public double TripAverageSpeed => _tripSpeedHistory.Sum() / (double)_tripSpeedHistory.Count(s => s > 0);
-            public double TotalAverageSpeed => _totalSpeedHistory.Sum() / (double)_totalSpeedHistory.Count(s => s > 0);
-            public int ActualSpeed => _drivingProcessor.ActualSpeed;
-            public double ActualConsumptionByTime => _tripConsumptionHistory.Last();
-            public double ActualConsumptionByDistance => _tripDistanceHistory.Last() == 0 ? double.NaN : _tripConsumptionHistory.Last() / Conv(_tripDistanceHistory.Last()) * 100;
-            public double TripAverageConsumptionByTime => _tripConsumptionHistory.Sum() / _tripConsumptionHistory.Count;
-            public double TotalAverageConsumptionByTime => _totalConsumptionHistory.Sum() / _totalConsumptionHistory.Count;
-
-            public double TripAverageConsumptionByDistance
+            get
             {
-                get
-                {
-                    foreach (var item in _tripConsumptionByDistanceHistory.Skip(1))
-                        Console.WriteLine(item);
-                    if (!_tripConsumptionByDistanceHistory.Any())
-                        return 0;
-                    return _tripConsumptionByDistanceHistory.Skip(1).Any() ? _tripConsumptionByDistanceHistory.Skip(1).Average() : 0;
-                }
+                if (!tripConsumptionByDistanceHistory.Any())
+                    return 0;
+                return tripConsumptionByDistanceHistory.Average();
+
+                //Log.Info($"{(_startingFuelLevel - _fuelTank.FillLevel)*100.0} / {Math.Round(TripDrivenDistance / 3600.0, 2)}");
+                //if (TripDrivenDistance==0)
+                //    return 0;
+                //return (_startingFuelLevel - _fuelTank.FillLevel)*100.0 / Math.Round(TripDrivenDistance / 3600.0, 2);
             }
-
-            public double TotalAverageConsumptionByDistance
-            {
-                get
-                {
-                    foreach (var item in _totalConsumptionByDistanceHistory.Skip(1))
-                        Console.WriteLine($"_{item}");
-                    if (!_totalConsumptionByDistanceHistory.Any())
-                        return 0;
-                    return _totalConsumptionByDistanceHistory.Skip(1).Any() ? _totalConsumptionByDistanceHistory.Skip(1).Average() : 0;
-                }
-            }
-
-            public int EstimatedRange
-            {
-                get
-                {
-                    for (int i = 1; i < _totalConsumptionHistory.Count; i++)
-                        _factoryAndTotalConsumptionByDistanceHistory.Add(_totalConsumptionHistory[i] / Conv(_totalDistanceHistory[i]) * 100);
-                    return (int)Math.Round(_fuelTank.FillLevel / _factoryAndTotalConsumptionByDistanceHistory.TakeLast(100).Average() * 100, 0);
-                }
-            }
-
-            public OnBoardComputer(IDrivingProcessor drivingProcessor, IFuelTank fuelTank)
-            {
-                _drivingProcessor = drivingProcessor;
-                _fuelTank = fuelTank;
-                _tripSpeedHistory = new List<int>();
-                _totalSpeedHistory = new List<int>();
-                _tripDistanceHistory = new List<int>();
-                _totalDistanceHistory = new List<int>();
-                _totalConsumptionHistory = new List<double>();
-                _tripConsumptionHistory = new List<double>();
-                _tripConsumptionByDistanceHistory = new List<double>();
-                _totalConsumptionByDistanceHistory = new List<double>();
-                _factoryConsumptionByDistanceHistory = Enumerable.Repeat(4.8, 100).ToList();
-                _factoryAndTotalConsumptionByDistanceHistory = new List<double>();
-                _factoryAndTotalConsumptionByDistanceHistory.AddRange(_factoryConsumptionByDistanceHistory);
-            }
-
-            public void ElapseSecond()
-            {
-                _tripSpeedHistory.Add(ActualSpeed);
-                _totalSpeedHistory.Add(ActualSpeed);
-
-                _tripConsumptionHistory.Add(_drivingProcessor.ActualConsumption);
-                _totalConsumptionHistory.Add(_drivingProcessor.ActualConsumption);
-
-                _tripDistanceHistory.Add(ActualSpeed);
-                _totalDistanceHistory.Add(ActualSpeed);
-
-                if (!Double.IsNaN(ActualConsumptionByDistance))
-                    _tripConsumptionByDistanceHistory.Add(Math.Round(ActualConsumptionByDistance, 1));
-                else
-                    _tripConsumptionByDistanceHistory.Add(0);
-
-                if (!Double.IsNaN(ActualConsumptionByDistance))
-                    _totalConsumptionByDistanceHistory.Add(Math.Round(ActualConsumptionByDistance, 1));
-                else
-                    _totalConsumptionByDistanceHistory.Add(0);
-            }
-
-            public void TotalReset()
-            {
-                _totalSpeedHistory.Clear();
-                //_totalConsumptionHistory.RemoveRange(100, _totalConsumptionHistory.Count - 100);
-                _totalDistanceHistory.Clear();
-                _totalConsumptionHistory.Clear();
-                _totalConsumptionByDistanceHistory.Clear();
-                ElapseSecond();
-            }
-
-            public void TripReset()
-            {
-                _tripSpeedHistory.Clear();
-                _tripDistanceHistory.Clear();
-                _tripConsumptionHistory.Clear();
-                _tripConsumptionByDistanceHistory.Clear();
-                ElapseSecond();
-            }
-
-            public double Conv(int speed) => speed / 3600.0;
-
-            public double Conv(double speed) => speed / 3600.0;
         }
+
+        public double TotalAverageConsumptionByDistance
+        {
+            get
+            {
+                if (!totalConsumptionByDistanceHistory.Any())
+                    return 0;
+                return totalConsumptionByDistanceHistory.Average();
+            }
+        }
+
+        public int EstimatedRange
+        {
+            get
+            {
+                for (int i = 1; i < totalConsumptionHistory.Count; i++)
+                    factoryAndTotalConsumptionByDistanceHistory.Add(totalConsumptionHistory[i] / Conv(totalDistanceHistory[i]) * 100);
+                return (int)Math.Round(_fuelTank.FillLevel / factoryAndTotalConsumptionByDistanceHistory.TakeLast(100).Average() * 100, 0);
+            }
+        }
+
+        public OnBoardComputer(IDrivingProcessor drivingProcessor, IFuelTank fuelTank)
+        {
+            _drivingProcessor = drivingProcessor;
+            _fuelTank = fuelTank;
+            tripSpeedHistory = new List<int>();
+            totalSpeedHistory = new List<int>();
+            tripDistanceHistory = new List<int>();
+            totalDistanceHistory = new List<int>();
+            totalConsumptionHistory = new List<double>();
+            tripConsumptionHistory = new List<double>();
+            tripConsumptionByDistanceHistory = new List<double>();
+            totalConsumptionByDistanceHistory = new List<double>();
+            factoryConsumptionByDistanceHistory = Enumerable.Repeat(4.8, 100).ToList();
+            factoryAndTotalConsumptionByDistanceHistory = new List<double>();
+            factoryAndTotalConsumptionByDistanceHistory.AddRange(factoryConsumptionByDistanceHistory);
+            startingFuelLevel = _fuelTank.FillLevel;
+        }
+
+        public void ElapseSecond()
+        {
+            Log.Info($"ElapseSecond()");
+            tripSpeedHistory.Add(ActualSpeed);
+            totalSpeedHistory.Add(ActualSpeed);
+
+            tripConsumptionHistory.Add(_drivingProcessor.ActualConsumption);
+            totalConsumptionHistory.Add(_drivingProcessor.ActualConsumption);
+
+            tripDistanceHistory.Add(ActualSpeed);
+            totalDistanceHistory.Add(ActualSpeed);
+
+            if (!Double.IsNaN(ActualConsumptionByDistance))
+                tripConsumptionByDistanceHistory.Add(Math.Round(ActualConsumptionByDistance, 1));
+            else if (_drivingProcessor.ActualConsumption != 0)
+                tripConsumptionByDistanceHistory.Add(_drivingProcessor.ActualConsumption);
+
+            if (!Double.IsNaN(ActualConsumptionByDistance))
+                totalConsumptionByDistanceHistory.Add(Math.Round(ActualConsumptionByDistance, 1));
+            else if (_drivingProcessor.ActualConsumption != 0)
+                totalConsumptionByDistanceHistory.Add(_drivingProcessor.ActualConsumption);
+
+            if (tripConsumptionByDistanceHistory.Any())
+                Log.Info($"_tripConsumptionByDistanceHistory(OBC): {tripConsumptionByDistanceHistory.Last()}");
+            if (totalConsumptionByDistanceHistory.Any())
+                Log.Info($"_totalConsumptionByDistanceHistory(OBC): {totalConsumptionByDistanceHistory.Last()}");
+
+            Log.Info($"ActualConsumptionByDistance(OBC): {ActualConsumptionByDistance}");
+            Log.Info($"ActualConsumption(OBC): {_drivingProcessor.ActualConsumption}");
+        }
+
+        public void TotalReset()
+        {
+            Log.Info($"TotalReset()");
+            totalSpeedHistory.Clear();
+            //_totalConsumptionHistory.RemoveRange(100, _totalConsumptionHistory.Count - 100);
+            totalDistanceHistory.Clear();
+            totalConsumptionHistory.Clear();
+            totalConsumptionByDistanceHistory.Clear();
+            //ElapseSecond();
+        }
+
+        public void TripReset()
+        {
+            Log.Info($"TripReset()");
+            tripSpeedHistory.Clear();
+            tripDistanceHistory.Clear();
+            tripConsumptionHistory.Clear();
+            tripConsumptionByDistanceHistory.Clear();
+            //ElapseSecond();
+        }
+
+        public double Conv(int speed) => speed / 3600.0;
+
+        public double Conv(double speed) => speed / 3600.0;
     }
 }

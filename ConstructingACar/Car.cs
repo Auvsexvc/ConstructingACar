@@ -2,77 +2,87 @@
 
 namespace ConstructingACar
 {
-    internal partial class Constructing_a_car
+    public class Car : ICar
     {
-        public class Car : ICar
+        private IFuelTankDisplay _fuelTankDisplay;
+        private IEngine _engine;
+        private IFuelTank _fuelTank;
+        private IDrivingInformationDisplay _drivingInformationDisplay;
+        private IDrivingProcessor _drivingProcessor;
+        private IOnBoardComputerDisplay _onBoardComputerDisplay; // car #3
+        private IOnBoardComputer _onBoardComputer; // car #3
+
+        public bool EngineIsRunning => _engine.IsRunning;
+
+        public Car(double fuelLevel = 20, int maxAcceleration = 10) // car #2
         {
-            public IFuelTankDisplay fuelTankDisplay;
-            private IEngine engine;
-            private IFuelTank fuelTank;
-            public IDrivingInformationDisplay drivingInformationDisplay;
-            private IDrivingProcessor drivingProcessor;
-            public IOnBoardComputerDisplay onBoardComputerDisplay; // car #3
-            private IOnBoardComputer onBoardComputer; // car #3
+            _fuelTank = new FuelTank(fuelLevel);
+            _engine = new Engine(_fuelTank);
+            _fuelTankDisplay = new FuelTankDisplay(_fuelTank);
+            _drivingProcessor = new DrivingProcessor(maxAcceleration, _engine);
+            _drivingInformationDisplay = new DrivingInformationDisplay(_drivingProcessor);
+            _onBoardComputer = new OnBoardComputer(_drivingProcessor, _fuelTank);
+            _onBoardComputerDisplay = new OnBoardComputerDisplay(_onBoardComputer);
+            Log.Info($"fuelLevel: {fuelLevel}, maxAcceleration: {maxAcceleration}");
+        }
 
-            public bool EngineIsRunning => engine.IsRunning;
-
-            public Car(double fuelLevel = 20, int maxAcceleration = 10) // car #2
+        public void EngineStart()
+        {
+            if (!EngineIsRunning && _fuelTank.FillLevel >= 0.0003)
             {
-                fuelTank = new FuelTank(fuelLevel);
-                engine = new Engine(fuelTank);
-                fuelTankDisplay = new FuelTankDisplay(fuelTank);
-                drivingProcessor = new DrivingProcessor(maxAcceleration, engine);
-                drivingInformationDisplay = new DrivingInformationDisplay(drivingProcessor);
-                onBoardComputer = new OnBoardComputer(drivingProcessor, fuelTank);
-                onBoardComputerDisplay = new OnBoardComputerDisplay(onBoardComputer);
+                Log.Info($"EngineStart()");
+                _engine.Start();
+                _onBoardComputer.TripReset();
+                _drivingProcessor.EngineStart();
+                _onBoardComputer.ElapseSecond();
+                Log.Info($"fuel: {_fuelTank.FillLevel}");
             }
+        }
 
-            public void EngineStart()
+        public void EngineStop()
+        {
+            Log.Info($"EngineStop()");
+            if (EngineIsRunning)
             {
-                if (!EngineIsRunning && fuelTank.FillLevel >= 0.0003)
-                {
-                    engine.Start();
-                    onBoardComputer.TripReset();
-                    //onBoardComputer.ElapseSecond();
-                }
+                _engine.Stop();
+                _drivingProcessor.EngineStop();
+                _onBoardComputer.ElapseSecond();
             }
+            Log.Info($"fuel: {_fuelTank.FillLevel}");
+        }
 
-            public void EngineStop()
-            {
-                if (EngineIsRunning)
-                {
-                    engine.Stop();
-                }
-            }
+        public void Refuel(double liters) => _fuelTank.Refuel(liters);
 
-            public void Refuel(double liters)
-            {
-                fuelTank.Refuel(liters);
-            }
+        public void RunningIdle()
+        {
+            Log.Info($"RunningIdle()");
+            _drivingProcessor.ReduceSpeed(0);
+            _onBoardComputer.ElapseSecond();
+            Log.Info($"fuel: {_fuelTank.FillLevel}");
+        }
 
-            public void RunningIdle()
-            {
-                drivingProcessor.ReduceSpeed(0);
-                onBoardComputer.ElapseSecond();
-            }
+        public void BrakeBy(int speed)
+        {
+            Log.Info($"BrakeBy({speed})");
+            _drivingProcessor.ReduceSpeed(speed);
+            _onBoardComputer.ElapseSecond();
+            Log.Info($"fuel: {_fuelTank.FillLevel}");
+        }
 
-            public void BrakeBy(int speed)
-            {
-                drivingProcessor.ReduceSpeed(speed);
-                onBoardComputer.ElapseSecond();
-            }
+        public void Accelerate(int speed)
+        {
+            Log.Info($"Accelerate({speed})");
+            _drivingProcessor.IncreaseSpeedTo(speed);
+            _onBoardComputer.ElapseSecond();
+            Log.Info($"fuel: {_fuelTank.FillLevel}");
+        }
 
-            public void Accelerate(int speed)
-            {
-                drivingProcessor.IncreaseSpeedTo(speed);
-                onBoardComputer.ElapseSecond();
-            }
-
-            public void FreeWheel()
-            {
-                drivingProcessor.ReduceSpeed(1);
-                onBoardComputer.ElapseSecond();
-            }
+        public void FreeWheel()
+        {
+            Log.Info($"FreeWheel()");
+            _drivingProcessor.ReduceSpeed(1);
+            _onBoardComputer.ElapseSecond();
+            Log.Info($"fuel: {_fuelTank.FillLevel}");
         }
     }
 }
