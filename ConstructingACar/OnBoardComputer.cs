@@ -69,7 +69,7 @@ namespace ConstructingACar
 
         public void ElapseSecond()
         {
-            //Log.Info($"ElapseSecond()");
+            Log.Info($"ElapseSecond()");
             tripSpeedHistory.Add(ActualSpeed);
             totalSpeedHistory.Add(ActualSpeed);
 
@@ -97,7 +97,7 @@ namespace ConstructingACar
             }
 
             //Log.Info($"ActualConsumptionByDistance(OBC): {ActualConsumptionByDistance}");
-            //Log.Info($"ActualConsumption(OBC): {_drivingProcessor.ActualConsumption}");
+            Log.Info($"ActualConsumption(OBC): {_drivingProcessor.ActualConsumption}");
         }
 
         public void TotalReset()

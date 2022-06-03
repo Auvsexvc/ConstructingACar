@@ -30,12 +30,12 @@ namespace ConstructingACar
         {
             if (!EngineIsRunning && _fuelTank.FillLevel >= 0.0003)
             {
-                //Log.Info($"EngineStart()");
+                Log.Info($"EngineStart()");
                 _engine.Start();
                 _onBoardComputer.TripReset();
                 _drivingProcessor.EngineStart();
                 _onBoardComputer.ElapseSecond();
-                //Log.Info($"fuel: {_fuelTank.FillLevel}");
+                Log.Info($"fuel: {_fuelTank.FillLevel}");
             }
         }
 
@@ -79,10 +79,10 @@ namespace ConstructingACar
         {
             if (EngineIsRunning)
             {
-                //Log.Info($"Accelerate({speed})");
+                Log.Info($"Accelerate({speed})");
                 _drivingProcessor.IncreaseSpeedTo(speed);
                 _onBoardComputer.ElapseSecond();
-                //Log.Info($"fuel: {_fuelTank.FillLevel}");
+                Log.Info($"fuel: {_fuelTank.FillLevel}");
             }
         }
 

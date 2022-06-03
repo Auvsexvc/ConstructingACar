@@ -58,7 +58,7 @@ namespace ConstructingACar
 
             Consume();
 
-            ////Log.Info($"ActualConsumption(DP): {ActualConsumption}");
+            //Log.Info($"ActualConsumption(DP): {ActualConsumption}");
         }
 
         public void ReduceSpeed(int speed)
@@ -118,7 +118,7 @@ namespace ConstructingACar
                     actualConsumption = 0.0014;
                     break;
                 case int s when s <= 140:
-                    actualConsumption = 0.0025;
+                    actualConsumption = 0.0020;
                     break;
                 case int s when s <= 200:
                     actualConsumption = 0.0025;
