@@ -23,32 +23,32 @@ namespace ConstructingACar
             _drivingInformationDisplay = new DrivingInformationDisplay(_drivingProcessor);
             _onBoardComputer = new OnBoardComputer(_drivingProcessor, _fuelTank);
             _onBoardComputerDisplay = new OnBoardComputerDisplay(_onBoardComputer);
-            Log.Info($"fuelLevel: {fuelLevel}, maxAcceleration: {maxAcceleration}");
+            //Log.Info($"fuelLevel: {fuelLevel}, maxAcceleration: {maxAcceleration}");
         }
 
         public void EngineStart()
         {
             if (!EngineIsRunning && _fuelTank.FillLevel >= 0.0003)
             {
-                Log.Info($"EngineStart()");
+                //Log.Info($"EngineStart()");
                 _engine.Start();
                 _onBoardComputer.TripReset();
                 _drivingProcessor.EngineStart();
                 _onBoardComputer.ElapseSecond();
-                Log.Info($"fuel: {_fuelTank.FillLevel}");
+                //Log.Info($"fuel: {_fuelTank.FillLevel}");
             }
         }
 
         public void EngineStop()
         {
-            Log.Info($"EngineStop()");
+            //Log.Info($"EngineStop()");
             if (EngineIsRunning)
             {
                 _engine.Stop();
                 _drivingProcessor.EngineStop();
                 _onBoardComputer.ElapseSecond();
             }
-            Log.Info($"fuel: {_fuelTank.FillLevel}");
+            //Log.Info($"fuel: {_fuelTank.FillLevel}");
         }
 
         public void Refuel(double liters) => _fuelTank.Refuel(liters);
@@ -57,10 +57,10 @@ namespace ConstructingACar
         {
             if (EngineIsRunning)
             {
-                Log.Info($"RunningIdle()");
+                //Log.Info($"RunningIdle()");
                 _drivingProcessor.ReduceSpeed(0);
                 _onBoardComputer.ElapseSecond();
-                Log.Info($"fuel: {_fuelTank.FillLevel}");
+                //Log.Info($"fuel: {_fuelTank.FillLevel}");
             }
         }
 
@@ -68,10 +68,10 @@ namespace ConstructingACar
         {
             if (EngineIsRunning)
             {
-                Log.Info($"BrakeBy({speed})");
+                //Log.Info($"BrakeBy({speed})");
                 _drivingProcessor.ReduceSpeed(speed);
                 _onBoardComputer.ElapseSecond();
-                Log.Info($"fuel: {_fuelTank.FillLevel}");
+                //Log.Info($"fuel: {_fuelTank.FillLevel}");
             }
         }
 
@@ -79,10 +79,10 @@ namespace ConstructingACar
         {
             if (EngineIsRunning)
             {
-                Log.Info($"Accelerate({speed})");
+                //Log.Info($"Accelerate({speed})");
                 _drivingProcessor.IncreaseSpeedTo(speed);
                 _onBoardComputer.ElapseSecond();
-                Log.Info($"fuel: {_fuelTank.FillLevel}");
+                //Log.Info($"fuel: {_fuelTank.FillLevel}");
             }
         }
 
@@ -90,10 +90,10 @@ namespace ConstructingACar
         {
             if (EngineIsRunning)
             {
-                Log.Info($"FreeWheel()");
+                //Log.Info($"FreeWheel()");
                 _drivingProcessor.ReduceSpeed(1);
                 _onBoardComputer.ElapseSecond();
-                Log.Info($"fuel: {_fuelTank.FillLevel}");
+                //Log.Info($"fuel: {_fuelTank.FillLevel}");
             }
         }
     }
