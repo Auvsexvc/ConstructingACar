@@ -58,7 +58,7 @@ namespace ConstructingACar
 
             Consume();
 
-            //Log.Info($"ActualConsumption(DP): {ActualConsumption}");
+            ////Log.Info($"ActualConsumption(DP): {ActualConsumption}");
         }
 
         public void ReduceSpeed(int speed)
@@ -75,7 +75,6 @@ namespace ConstructingACar
                 actualConsumption = 0;
             }
 
-            actualConsumption = 0;
 
             if (actualSpeed <= 0)
             {
@@ -83,20 +82,24 @@ namespace ConstructingACar
                 actualConsumption = 0.0003;
                 _engine.Consume(ActualConsumption);
             }
+            else
+            {
+                actualConsumption = 0;
+            }
 
-            //Log.Info($"ActualConsumption(DP): {ActualConsumption}");
+            ////Log.Info($"ActualConsumption(DP): {ActualConsumption}");
         }
 
         public void EngineStart()
         {
             actualConsumption = 0;
-            //Log.Info($"ActualConsumption(DP): {ActualConsumption}");
+            ////Log.Info($"ActualConsumption(DP): {ActualConsumption}");
         }
 
         public void EngineStop()
         {
             actualConsumption = 0;
-            //Log.Info($"ActualConsumption(DP): {ActualConsumption}");
+            ////Log.Info($"ActualConsumption(DP): {ActualConsumption}");
         }
 
         private void Consume()
@@ -127,7 +130,7 @@ namespace ConstructingACar
                     throw new ArgumentOutOfRangeException();
             }
 
-            //Log.Info($"ActualConsumption: {ActualConsumption}");
+            ////Log.Info($"ActualConsumption: {ActualConsumption}");
             _engine.Consume(actualConsumption);
         }
     }

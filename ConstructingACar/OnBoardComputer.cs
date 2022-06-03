@@ -31,28 +31,8 @@ namespace ConstructingACar
         public double ActualConsumptionByDistance => tripDistanceHistory.Last() == 0 ? double.NaN : 100.0 * tripConsumptionHistory.Last() / Utils.ConvertToKMPS(tripDistanceHistory.Last());
         public double TripAverageConsumptionByTime => tripConsumptionHistory.Any() ? tripConsumptionHistory.Sum() / tripConsumptionHistory.Count : 0;
         public double TotalAverageConsumptionByTime => totalConsumptionHistory.Any() ? totalConsumptionHistory.Sum() / totalConsumptionHistory.Count : 0;
-
-        public double TripAverageConsumptionByDistance
-        {
-            get
-            {
-                if (!tripConsumptionByDistanceHistory.Any())
-                    return 0;
-
-                return tripConsumptionByDistanceHistory.Average();
-            }
-        }
-
-        public double TotalAverageConsumptionByDistance
-        {
-            get
-            {
-                if (!totalConsumptionByDistanceHistory.Any())
-                    return 0;
-
-                return totalConsumptionByDistanceHistory.Average();
-            }
-        }
+        public double TripAverageConsumptionByDistance => tripConsumptionByDistanceHistory.Any() ? tripConsumptionByDistanceHistory.Average() : 0;
+        public double TotalAverageConsumptionByDistance => totalConsumptionByDistanceHistory.Any() ? totalConsumptionByDistanceHistory.Average() : 0;
 
         public int EstimatedRange
         {
@@ -104,7 +84,7 @@ namespace ConstructingACar
                 tripConsumptionByDistanceHistory.Add(Math.Round(ActualConsumptionByDistance, 1));
                 totalConsumptionByDistanceHistory.Add(Math.Round(ActualConsumptionByDistance, 1));
             }
-            else if (_drivingProcessor.ActualConsumption != 0)
+            else if (_drivingProcessor.ActualSpeed != 0)
             {
                 tripConsumptionByDistanceHistory.Add(_drivingProcessor.ActualConsumption);
                 totalConsumptionByDistanceHistory.Add(_drivingProcessor.ActualConsumption);
@@ -122,7 +102,7 @@ namespace ConstructingACar
 
         public void TotalReset()
         {
-            Log.Info($"TotalReset()");
+            //Log.Info($"TotalReset()");
             totalSpeedHistory.Clear();
             totalDistanceHistory.Clear();
             totalConsumptionHistory.Clear();
@@ -131,7 +111,7 @@ namespace ConstructingACar
 
         public void TripReset()
         {
-            Log.Info($"TripReset()");
+            //Log.Info($"TripReset()");
             tripSpeedHistory.Clear();
             tripDistanceHistory.Clear();
             tripConsumptionHistory.Clear();
