@@ -6,11 +6,12 @@ namespace ConstructingACar
     {
         private IEngine _engine;
 
-        private int actualSpeed;
         private const int maxSpeed = 250;
-        private int maxAcc = 20;
         private const int minAcc = 5;
         private const int maxBraking = 10;
+
+        private int actualSpeed;
+        private int maxAcc = 20;
         private double actualConsumption;
 
         public int ActualSpeed => actualSpeed;
