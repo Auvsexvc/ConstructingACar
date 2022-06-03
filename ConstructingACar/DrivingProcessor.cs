@@ -6,11 +6,12 @@ namespace ConstructingACar
     {
         private IEngine _engine;
 
-        private int actualSpeed;
         private const int maxSpeed = 250;
-        private int maxAcc = 20;
         private const int minAcc = 5;
         private const int maxBraking = 10;
+
+        private int actualSpeed;
+        private int maxAcc = 20;
         private double actualConsumption;
 
         public int ActualSpeed => actualSpeed;
@@ -58,7 +59,7 @@ namespace ConstructingACar
 
             Consume();
 
-            ////Log.Info($"ActualConsumption(DP): {ActualConsumption}");
+            //Log.Info($"ActualConsumption(DP): {ActualConsumption}");
         }
 
         public void ReduceSpeed(int speed)
@@ -118,7 +119,7 @@ namespace ConstructingACar
                     actualConsumption = 0.0014;
                     break;
                 case int s when s <= 140:
-                    actualConsumption = 0.0025;
+                    actualConsumption = 0.0020;
                     break;
                 case int s when s <= 200:
                     actualConsumption = 0.0025;

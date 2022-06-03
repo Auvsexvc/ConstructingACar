@@ -4,10 +4,11 @@ namespace ConstructingACar
 {
     public class FuelTank : IFuelTank
     {
-        private double _fillLevel;
         private const double _tankCap = 60;
         private const double _defaultFill = 20;
         private const double _reserve = 5;
+
+        private double _fillLevel;
 
         public double FillLevel => _fillLevel;
         public bool IsOnReserve => _fillLevel < _reserve;

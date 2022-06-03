@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace ConstructingACar
+namespace ConstructingACar.Tests
 {
     [TestFixture]
     public class Car3ExampleTests
