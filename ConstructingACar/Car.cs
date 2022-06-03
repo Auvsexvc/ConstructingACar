@@ -4,12 +4,12 @@ namespace ConstructingACar
 {
     public class Car : ICar
     {
-        private IFuelTankDisplay _fuelTankDisplay;
+        public IFuelTankDisplay _fuelTankDisplay;
         private IEngine _engine;
         private IFuelTank _fuelTank;
-        private IDrivingInformationDisplay _drivingInformationDisplay;
+        public IDrivingInformationDisplay _drivingInformationDisplay;
         private IDrivingProcessor _drivingProcessor;
-        private IOnBoardComputerDisplay _onBoardComputerDisplay; // car #3
+        public IOnBoardComputerDisplay _onBoardComputerDisplay; // car #3
         private IOnBoardComputer _onBoardComputer; // car #3
 
         public bool EngineIsRunning => _engine.IsRunning;

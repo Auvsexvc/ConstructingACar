@@ -5,7 +5,7 @@ namespace ConstructingACar
     public class Engine : IEngine
     {
         private IFuelTank _fuelTank;
-        
+
         private bool _isRunning = false;
 
         public bool IsRunning => _isRunning;
