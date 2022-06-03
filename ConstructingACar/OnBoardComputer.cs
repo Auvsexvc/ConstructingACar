@@ -83,7 +83,7 @@ namespace ConstructingACar
             factoryConsumptionByDistanceHistory = Enumerable.Repeat(4.8, 100).ToList();
             factoryAndTotalConsumptionByDistanceHistory = new List<double>();
             factoryAndTotalConsumptionByDistanceHistory.AddRange(factoryConsumptionByDistanceHistory);
-            startingFuelLevel = _fuelTank.FillLevel;
+            //startingFuelLevel = _fuelTank.FillLevel;
         }
 
         public void ElapseSecond()
