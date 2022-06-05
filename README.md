@@ -16,6 +16,7 @@ Constructin a car solution.
     /// And consider the locigal things about fuel and engine... ;-)
     /// In all tests only the whole car will be tested. Feel free to write your own tests for the other classes.
     
+    
     /// As second step you have to implement the logic for driving, which includes accelerating, braking and free-wheeling.
     /// If the car is free-wheeling (no pedal is used), it slows down the car by 1 km/h by air resistance and rolling resistance.
     /// Braking is BY a speed. Accelerating is TO a speed. (Remember: Every call of a method from the car correlates to 1 second.)
