@@ -1,6 +1,6 @@
 # ConstructingACar
 Constructin a car solution.
-/// <summary>
+
     /// You have to construct a car. Step by Step.
     /// First you have to implement the engine and the fuel tank.
     /// The default fuel level of a car is 20 liters.
@@ -15,6 +15,7 @@ Constructin a car solution.
     /// In difference to most real cars, the fuel tank display is always showing its information, also when the the engine is not running.
     /// And consider the locigal things about fuel and engine... ;-)
     /// In all tests only the whole car will be tested. Feel free to write your own tests for the other classes.
+    
     /// As second step you have to implement the logic for driving, which includes accelerating, braking and free-wheeling.
     /// If the car is free-wheeling (no pedal is used), it slows down the car by 1 km/h by air resistance and rolling resistance.
     /// Braking is BY a speed. Accelerating is TO a speed. (Remember: Every call of a method from the car correlates to 1 second.)
@@ -30,5 +31,52 @@ Constructin a car solution.
     /// 201 - 250 km/h -> 0.0030 liter/second
     /// (When the car brakes or freewheels with getting slower, there is no fuel consumption as in modern cars, when the car "powers" the engine.)
     /// For convenience the accelerations and brakings are always linear and consumption is only for the speed at the end of every second. No considering on higher consumption while accelerating within a second
-    /// As third step you have to implement the logic for an "on-board computer" (a.k.a. "body computer module" (bcm) or "Bordcomputer"). The On-Board Computer should display the following informations: trip real time trip driving time total real time total driving time trip driven distance total driven distance actual speed (additional to the drivingInformationDisplay) trip average speed total average speed actual consumption by time (from the last second/method) actual consumption by distance (from the last second/method) trip average consumption by time total average consumption by time trip average consumption by distance total average consumption by distance estimated range with actual fuel level "trip" means since enginestart. The "total"-counter keep their values beyond enginestarts. The On-Board Computer should be resetable for the "trip" and for "total". The speed-average-values are calculated by driving time (km/h) and should be rounded for 1 decimal place. The actual-consumption-by-time is calculated by second and should be rounded for 5 decimal places. The actual-consumption-by-distance is calculated in liter/100 km and should be rounded for 1 decimal place. If the car does not drive, it should return NaN. The consumption-average-by-time-values are calculated by real time (liter/second) and should be rounded for 5 decimal places. The consumption-average-by-distance-values are calculated in liter/100 km and should be rounded for 1 decimal place. The driving-distance-values are calculated in km and should have at max 2 decimal places. The estimated-range should be calculated in km and base on the consumption of the last 100 seconds. When the car is built, it should be assumed that the consumption was 4.8 Liter for the last 100 seconds. Hint: Also the values actual-consumption-by-distance and consumption-average-by-distance are calculated every second! (They are NOT calculated e.g. every 1 km or 10km. This would be much more realistic but would also make this kata much more complicated!) Remember: Every call of a method (except Refuel :D) from the car correlates to 1 second. Methods from the On-Board Computer correlates to 0 seconds. Hint: The methods "EngineStart" and "EngineStop" of the DrivingProcessor do NOT start the engine, but give the event into the DrivingProcessor, that the engine has started or stopped.
-    /// </summary>
+
+    As third step you have to implement the logic for an "on-board computer" (a.k.a. "body computer module" (bcm) or "Bordcomputer").
+
+    You have to consider all rules and conditions from the previous car-Katas.
+
+    So you could use your code from the last car-Kata as base for this kata. Then insert the lines marked as comment "car #3"
+    (Also at the end of this text there are listed these new lines.)
+
+    New additional rules and conditions:
+
+    The On-Board Computer should display the following informations:
+
+
+    trip real time
+    trip driving time
+    total real time
+    total driving time
+    trip driven distance
+    total driven distance
+    actual speed (additional to the drivingInformationDisplay)
+    trip average speed
+    total average speed
+    actual consumption by time (from the last second/method)
+    actual consumption by distance (from the last second/method)
+    trip average consumption by time
+    total average consumption by time
+    trip average consumption by distance
+    total average consumption by distance
+    estimated range with actual fuel level
+
+    "trip" means since enginestart. The "total"-counter keep their values beyond enginestarts.
+    The On-Board Computer should be resetable for the "trip" and for "total".
+    The speed-average-values are calculated by driving time (km/h) and should be rounded for 1 decimal place.
+    The actual-consumption-by-time is calculated by second and should be rounded for 5 decimal places.
+    The actual-consumption-by-distance is calculated in liter/100 km and should be rounded for 1 decimal place. If the car does not drive, it should return NaN.
+    The consumption-average-by-time-values are calculated by real time (liter/second) and should be rounded for 5 decimal places.
+    The consumption-average-by-distance-values are calculated in liter/100 km and should be rounded for 1 decimal place.
+    The driving-distance-values are calculated in km and should have at max 2 decimal places.
+    The estimated-range should be calculated in km and base on the consumption of the last 100 seconds. When the car is built, it should be assumed that the consumption was 4.8 Liter for the last 100 seconds.
+
+    Hint: Also the values actual-consumption-by-distance and consumption-average-by-distance are calculated every second! (They are NOT calculated e.g. every 1 km or 10km. This would be much more realistic but would also make this kata much more complicated!)
+
+    Remember: Every call of a method (except Refuel :D) from the car correlates to 1 second. Methods from the On-Board Computer correlates to 0 seconds.
+
+    Hint: The methods "EngineStart" and "EngineStop" of the DrivingProcessor do NOT start the engine, but give the event into the DrivingProcessor, that the engine has started or stopped.
+
+    In all tests only the whole car will be tested. Feel free to write your own tests for the other classes.
+
+
