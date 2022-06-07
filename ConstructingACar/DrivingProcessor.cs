@@ -4,14 +4,14 @@ namespace ConstructingACar
 {
     public class DrivingProcessor : IDrivingProcessor // car #2
     {
-        private IEngine _engine;
+        private readonly IEngine _engine;
 
         private const int maxSpeed = 250;
         private const int minAcc = 5;
         private const int maxBraking = 10;
 
         private int actualSpeed;
-        private int maxAcc = 20;
+        private readonly int maxAcc = 20;
         private double actualConsumption;
 
         public int ActualSpeed => actualSpeed;
@@ -76,7 +76,6 @@ namespace ConstructingACar
                 actualConsumption = 0;
             }
 
-
             if (actualSpeed <= 0)
             {
                 actualSpeed = 0;
@@ -110,26 +109,15 @@ namespace ConstructingACar
                 return;
             }
 
-            switch (actualSpeed)
+            actualConsumption = actualSpeed switch
             {
-                case int s when s <= 60:
-                    actualConsumption = 0.0020;
-                    break;
-                case int s when s <= 100:
-                    actualConsumption = 0.0014;
-                    break;
-                case int s when s <= 140:
-                    actualConsumption = 0.0020;
-                    break;
-                case int s when s <= 200:
-                    actualConsumption = 0.0025;
-                    break;
-                case int s when s <= 250:
-                    actualConsumption = 0.0030;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+                int s when s <= 60 => 0.0020,
+                int s when s <= 100 => 0.0014,
+                int s when s <= 140 => 0.0020,
+                int s when s <= 200 => 0.0025,
+                int s when s <= 250 => 0.0030,
+                _ => throw new ArgumentOutOfRangeException(),
+            };
 
             ////Log.Info($"ActualConsumption: {ActualConsumption}");
             _engine.Consume(actualConsumption);

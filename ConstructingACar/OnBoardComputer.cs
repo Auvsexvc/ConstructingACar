@@ -4,23 +4,23 @@ namespace ConstructingACar
 {
     public class OnBoardComputer : IOnBoardComputer // car #3
     {
-        private IDrivingProcessor _drivingProcessor;
-        private IFuelTank _fuelTank;
+        private readonly IDrivingProcessor _drivingProcessor;
+        private readonly IFuelTank _fuelTank;
 
-        private List<double> tripConsumptionHistory;
-        private List<double> totalConsumptionHistory;
-        private List<int> tripSpeedHistory;
-        private List<int> totalSpeedHistory;
-        private List<int> tripDistanceHistory;
-        private List<int> totalDistanceHistory;
-        private List<double> tripConsumptionByDistanceHistory;
-        private List<double> totalConsumptionByDistanceHistory;
-        private List<double> factoryAndTotalConsumptionByTime;
+        private readonly List<double> tripConsumptionHistory;
+        private readonly List<double> totalConsumptionHistory;
+        private readonly List<int> tripSpeedHistory;
+        private readonly List<int> totalSpeedHistory;
+        private readonly List<int> tripDistanceHistory;
+        private readonly List<int> totalDistanceHistory;
+        private readonly List<double> tripConsumptionByDistanceHistory;
+        private readonly List<double> totalConsumptionByDistanceHistory;
+        private readonly List<double> factoryAndTotalConsumptionByTime;
 
         public int TripRealTime => tripSpeedHistory.Count;
         public int TripDrivingTime => tripSpeedHistory.Count(s => s > 0);
         public int TripDrivenDistance => tripDistanceHistory.Sum();
-        public int TotalRealTime => totalSpeedHistory.Count();
+        public int TotalRealTime => totalSpeedHistory.Count;
         public int TotalDrivingTime => totalSpeedHistory.Count(s => s > 0);
         public int TotalDrivenDistance => totalDistanceHistory.Sum();
         public double TripAverageSpeed => tripSpeedHistory.Sum() / (double)tripSpeedHistory.Count(s => s > 0);
@@ -28,10 +28,10 @@ namespace ConstructingACar
         public int ActualSpeed => _drivingProcessor.ActualSpeed;
         public double ActualConsumptionByTime => tripConsumptionHistory.Last();
         public double ActualConsumptionByDistance => tripDistanceHistory.Last() == 0 ? double.NaN : 100.0 * tripConsumptionHistory.Last() / Utils.ConvertToKMPS(tripDistanceHistory.Last());
-        public double TripAverageConsumptionByTime => tripConsumptionHistory.Any() ? tripConsumptionHistory.Sum() / tripConsumptionHistory.Count : 0;
-        public double TotalAverageConsumptionByTime => totalConsumptionHistory.Any() ? totalConsumptionHistory.Sum() / totalConsumptionHistory.Count : 0;
-        public double TripAverageConsumptionByDistance => tripConsumptionByDistanceHistory.Any() ? tripConsumptionByDistanceHistory.Average() : 0;
-        public double TotalAverageConsumptionByDistance => totalConsumptionByDistanceHistory.Any() ? totalConsumptionByDistanceHistory.Average() : 0;
+        public double TripAverageConsumptionByTime => tripConsumptionHistory.Count > 0 ? tripConsumptionHistory.Sum() / tripConsumptionHistory.Count : 0;
+        public double TotalAverageConsumptionByTime => totalConsumptionHistory.Count > 0 ? totalConsumptionHistory.Sum() / totalConsumptionHistory.Count : 0;
+        public double TripAverageConsumptionByDistance => tripConsumptionByDistanceHistory.Count > 0 ? tripConsumptionByDistanceHistory.Average() : 0;
+        public double TotalAverageConsumptionByDistance => totalConsumptionByDistanceHistory.Count > 0 ? totalConsumptionByDistanceHistory.Average() : 0;
         public int EstimatedRange => (int)Math.Round(100 * _fuelTank.FillLevel / factoryAndTotalConsumptionByTime.Concat(tripConsumptionByDistanceHistory).ToList().TakeLast(100).Average(), 0);
 
         public OnBoardComputer(IDrivingProcessor drivingProcessor, IFuelTank fuelTank)
