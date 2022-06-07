@@ -4,10 +4,10 @@ namespace ConstructingACar
 {
     public class Car : ICar
     {
-        private IEngine _engine;
-        private IFuelTank _fuelTank;
-        private IDrivingProcessor _drivingProcessor;
-        private IOnBoardComputer _onBoardComputer; // car #3
+        private readonly IEngine _engine;
+        private readonly IFuelTank _fuelTank;
+        private readonly IDrivingProcessor _drivingProcessor;
+        private readonly IOnBoardComputer _onBoardComputer; // car #3
         public IFuelTankDisplay _fuelTankDisplay;
         public IDrivingInformationDisplay _drivingInformationDisplay;
         public IOnBoardComputerDisplay _onBoardComputerDisplay; // car #3
